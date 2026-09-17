@@ -1,0 +1,79 @@
+{
+  "source": "https://arch-center.azureedge.net/icons/Azure_Public_Service_Icons_V24.zip",
+  "terms": "https://learn.microsoft.com/en-us/azure/architecture/icons/",
+  "archiveSha256": "921594ccd1bf3d9c0a1bd7b6d924e050551a59342f2b353bb74bdcf761c35141",
+  "icons": [
+    {
+      "key": "functions",
+      "file": "functions.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/compute/10029-icon-service-Function-Apps.svg",
+      "sha256": "1a6c9c108d5f63f7b78bc6fbc464059acd2eaa8c1d111e9bcd28a8b2cdf470b9"
+    },
+    {
+      "key": "storage",
+      "file": "storage.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/storage/10086-icon-service-Storage-Accounts.svg",
+      "sha256": "7190d3bb14ce30ce74bd0af873915830fe821e8c5f6ef6f3149e6f7cfb2aa4f7"
+    },
+    {
+      "key": "blob",
+      "file": "blob.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/general/10839-icon-service-Storage-Container.svg",
+      "sha256": "cc50afdf3d9386f6872d314fd4f570645a594680c727bc709dfe8c4d6e5a6b2a"
+    },
+    {
+      "key": "queue",
+      "file": "queue.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/general/10840-icon-service-Storage-Queue.svg",
+      "sha256": "1f37dad74544fe1e4d5f10d40a11e71b8026d5b11993539f9f19416224097a08"
+    },
+    {
+      "key": "documentIntelligence",
+      "file": "documentIntelligence.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/ai + machine learning/00819-icon-service-Form-Recognizers.svg",
+      "sha256": "196e5db33e32027349ee7250df79dfaf96b65e57a30a98662e6dd08d6d0c7360"
+    },
+    {
+      "key": "privateEndpoint",
+      "file": "privateEndpoint.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/other/02579-icon-service-Private-Endpoints.svg",
+      "sha256": "96de0bb7f0aeb1220d0fd6d337578d5e93dca017d6ea7d42d887aa329b2fd90d"
+    },
+    {
+      "key": "virtualNetwork",
+      "file": "virtualNetwork.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/networking/10061-icon-service-Virtual-Networks.svg",
+      "sha256": "64a5e75ecef2f9f69067faa2eb131266cb8f2858706f8ab74bfea5ad0d98b14d"
+    },
+    {
+      "key": "dns",
+      "file": "dns.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/networking/10064-icon-service-DNS-Zones.svg",
+      "sha256": "e6aaa1380e974af7d0aba1bb8380ecfab3f95182a595a28692aa3f963bcf9fac"
+    },
+    {
+      "key": "identity",
+      "file": "identity.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/identity/10227-icon-service-Managed-Identities.svg",
+      "sha256": "fa2e0fb863e81d7923b5708bed196e19310867a194d23bea96dddc42e302693c"
+    },
+    {
+      "key": "insights",
+      "file": "insights.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/monitor/00012-icon-service-Application-Insights.svg",
+      "sha256": "36c73dea8b1598fbfff84890a2b409600f1339eec8c1bf1a896439e9da8f9dca"
+    },
+    {
+      "key": "logs",
+      "file": "logs.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/monitor/00009-icon-service-Log-Analytics-Workspaces.svg",
+      "sha256": "7a244a8d7260e84be5c904185db7b04994fe6ed345e2b224163bc5f7e3d97ce0"
+    },
+    {
+      "key": "monitor",
+      "file": "monitor.svg",
+      "archiveEntry": "Azure_Public_Service_Icons/Icons/monitor/00001-icon-service-Monitor.svg",
+      "sha256": "1396f59a7d8fd7505a423842b987c9b343a092263d1ab5c7b0d94d58d8b17448"
+    }
+  ]
+}

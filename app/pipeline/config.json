@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 2,
+  "enabled": false,
+  "example": true,
+  "classifier": {
+    "id": "",
+    "minimumConfidence": 0.8,
+    "coverClasses": ["cover"],
+    "bodyClasses": {"body": "body"}
+  },
+  "faxTypeClassifier": {
+    "id": "",
+    "minimumConfidence": 0.8,
+    "calibrationId": "",
+    "classes": {"exam": "exam", "order": "order", "rx": "rx"}
+  },
+  "documentTypes": {
+    "exam": {
+      "modelId": "",
+      "resultDocType": "",
+      "expectedFields": ["PatientId", "PatientName", "DateOfBirth", "EncounterId", "DocumentDate", "ProviderId", "ExamName", "ResultText"]
+    },
+    "order": {
+      "modelId": "",
+      "resultDocType": "",
+      "expectedFields": ["PatientId", "PatientName", "DateOfBirth", "EncounterId", "DocumentDate", "ProviderId", "OrderCode", "OrderDescription"]
+    },
+    "rx": {
+      "modelId": "",
+      "resultDocType": "",
+      "expectedFields": ["PatientId", "PatientName", "DateOfBirth", "EncounterId", "DocumentDate", "ProviderId", "MedicationCode", "MedicationName", "Dose", "Route", "Frequency"]
+    }
+  },
+  "directUpload": {"enabled": false, "trustedUploader": "", "allowedSources": []},
+  "hl7Profiles": {},
+  "sources": {},
+  "routes": [
+    {"id": "exam-archive", "match": {"documentType": "exam"}},
+    {"id": "order-archive", "match": {"documentType": "order"}},
+    {"id": "rx-archive", "match": {"documentType": "rx"}}
+  ]
+}

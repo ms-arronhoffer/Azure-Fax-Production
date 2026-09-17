@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+tests/
+scripts/
+local.settings.json
+local.settings.example.json
+*.pyc
+.pytest_cache/
+*.[pP][eE][mM]
+**/*.[pP][eE][mM]

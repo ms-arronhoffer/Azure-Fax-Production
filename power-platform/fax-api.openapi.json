@@ -1,0 +1,122 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Private Fax Processing API",
+    "version": "1.0.0",
+    "description": "Replace the host and OAuth tenant/API settings before importing. Requires approved Power Platform private connectivity. Fax.Submit authorizes upload; Fax.Admin authorizes cross-owner status reads. File uploads are raw binary, not base64 text."
+  },
+  "host": "replace-with-function-name.azurewebsites.net",
+  "basePath": "/api",
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/REPLACE_TENANT_ID/oauth2/v2.0/authorize",
+      "tokenUrl": "https://login.microsoftonline.com/REPLACE_TENANT_ID/oauth2/v2.0/token",
+      "scopes": {
+        "api://REPLACE_API_CLIENT_ID/access_as_user": "Access the Fax API as the signed-in user"
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": ["api://REPLACE_API_CLIENT_ID/access_as_user"]
+    }
+  ],
+  "paths": {
+    "/faxes": {
+      "post": {
+        "operationId": "SubmitFax",
+        "summary": "Upload a fax for asynchronous processing",
+        "description": "Requires Fax.Submit. Reuse the same idempotency UUID when retrying the same file and source. A 202 response is an upload receipt, not a successful extraction.",
+        "consumes": ["application/pdf", "image/tiff"],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Submission UUID generated once and reused on retries."
+          },
+          {
+            "name": "X-Fax-Source",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Configured source authorized for this connection identity."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Raw PDF or TIFF file bytes."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted for asynchronous processing. See API documentation for the receipt shape.",
+            "schema": {
+              "type": "object",
+              "required": ["faxId", "statusUrl"],
+              "properties": {
+                "faxId": {"type": "string", "format": "uuid"},
+                "statusUrl": {"type": "string", "description": "Relative path to the status API."}
+              }
+            }
+          },
+          "400": {"description": "Invalid input, missing header, unsupported media type or mismatched file signature"},
+          "401": {"description": "Missing or invalid Entra access token"},
+          "403": {"description": "Role or source authorization denied"},
+          "409": {"description": "Idempotency key conflicts with an existing submission"},
+          "413": {"description": "Empty upload or upload exceeds configured byte limit"},
+          "503": {"description": "Admission disabled or service temporarily unavailable"}
+        }
+      }
+    },
+    "/faxes/{faxId}": {
+      "get": {
+        "operationId": "GetFaxStatus",
+        "summary": "Read an authorized fax job status",
+        "description": "Only the submission owner or a caller with Fax.Admin or Fax.Review may read the job. Consumers must use a completed manifest and verify the listed artifact hashes, not consume an individual blob on arrival. This connector covers upload/status only; review and reporting endpoints are documented separately.",
+        "parameters": [
+          {
+            "name": "faxId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized job status. See API documentation for the status shape.",
+            "schema": {
+              "type": "object",
+              "required": ["faxId", "status", "createdAt", "updatedAt"],
+              "properties": {
+                "faxId": {"type": "string", "format": "uuid"},
+                "status": {"type": "string", "enum": ["Accepted", "Processing", "Publishing", "Completed", "PendingHumanReview", "Failed"]},
+                "createdAt": {"type": "string", "format": "date-time"},
+                "updatedAt": {"type": "string", "format": "date-time"},
+                "reason": {"type": "string"},
+                "completionMode": {"type": "string", "enum": ["Automatic", "Reviewed"]},
+                "reviewRevision": {"type": "integer", "minimum": 0},
+                "manifest": {"type": "object", "properties": {"container": {"type": "string"}, "name": {"type": "string"}}},
+                "publication": {"type": "object", "properties": {"manifestReady": {"type": "boolean"}, "plannedRoutes": {"type": "array", "items": {"type": "string"}}}}
+              }
+            }
+          },
+          "401": {"description": "Missing or invalid token"},
+          "403": {"description": "Invalid application principal"},
+          "404": {"description": "Job not found or caller lacks ownership, Fax.Admin and Fax.Review"},
+          "503": {"description": "Status service temporarily unavailable"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "subscriptionId": "79398e05-f318-4010-a508-d913c3763e39",
+  "tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3",
+  "location": "westus2",
+  "sku": "EP1",
+  "currentValue": 0,
+  "limit": 10,
+  "checkedAtUtc": "REPLACE_WITH_FRESH_UTC_TIMESTAMP",
+  "source": "REPLACE_WITH_READ_ONLY_PORTAL_OR_API_EVIDENCE_REFERENCE"
+}

@@ -1,0 +1,87 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "name": "quality-title",
+      "content": {
+        "version": "MarkdownItem/1.0",
+        "content": "# Fax Processing - Quality and Release\n\n**Confidence is not accuracy.** These telemetry views show workflow/model signals, not independently adjudicated correctness. Production release requires the success-criteria sample sizes and audit evidence. The current synthetic held-out exact-field result is 12/18 and is not approved for clinical automatic release."
+      }
+    },
+    {
+      "type": 3,
+      "name": "outcome-by-type",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Latest = AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), Status=tostring(Fact.status), DocumentType=tostring(Fact.documentType), Mode=tostring(Fact.completionMode), Source=tostring(Fact.sourceLabel)\n| where isnotempty(FaxId)\n| summarize arg_max(TimeGenerated, *) by FaxId;\nLatest\n| summarize Faxes=count() by DocumentType, Status, Mode, Source\n| order by Faxes desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "name": "rejection-drivers",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), Status=tostring(Fact.status), Reason=tostring(Fact.reason), Source=tostring(Fact.sourceLabel), DocumentType=tostring(Fact.documentType)\n| where Status in (\"PendingHumanReview\", \"Failed\") and isnotempty(FaxId)\n| summarize arg_max(TimeGenerated, *) by FaxId\n| summarize Faxes=count() by Reason, DocumentType, Source\n| order by Faxes desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "barchart"
+      }
+    },
+    {
+      "type": 3,
+      "name": "confidence-bands",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), MinimumConfidence=todouble(Fact.fieldMinimumConfidence), DocumentType=tostring(Fact.documentType), Source=tostring(Fact.sourceLabel)\n| where isnotempty(FaxId) and isnotnull(MinimumConfidence)\n| summarize arg_max(TimeGenerated, *) by FaxId\n| extend Band=case(MinimumConfidence < 0.8, \"< 0.80\", MinimumConfidence < 0.9, \"0.80-0.89\", MinimumConfidence < 0.95, \"0.90-0.94\", \"0.95-1.00\")\n| summarize Faxes=count() by Band, DocumentType, Source\n| order by Band asc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "barchart"
+      }
+    },
+    {
+      "type": 3,
+      "name": "hl7-disposition",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), Hl7Disposition=tostring(Fact.hl7Disposition), Profile=tostring(Fact.hl7Profile), DocumentType=tostring(Fact.documentType), Mode=tostring(Fact.completionMode)\n| where isnotempty(FaxId) and isnotempty(Hl7Disposition)\n| summarize arg_max(TimeGenerated, *) by FaxId\n| summarize Faxes=count() by Hl7Disposition, Profile, DocumentType, Mode\n| order by Faxes desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "name": "release-versions",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), ConfigSha256=tostring(Fact.configSha256), PageClassifier=tostring(Fact.modelIds.pageClassifier), FaxTypeClassifier=tostring(Fact.modelIds.faxTypeClassifier), Extractor=tostring(Fact.modelIds.extractor), CalibrationId=tostring(Fact.calibrationId)\n| where isnotempty(FaxId)\n| summarize arg_max(TimeGenerated, *) by FaxId\n| summarize Faxes=count() by ConfigSha256, PageClassifier, FaxTypeClassifier, Extractor, CalibrationId\n| order by Faxes desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 1,
+      "name": "quality-limitations",
+      "content": {
+        "version": "MarkdownItem/1.0",
+        "content": "## Required external evidence\n\nAudited all-fields-correct rate, critical clinical errors, cover precision/recall, type confusion matrices, cost per fax, and receiver acceptance cannot be inferred from Application Insights. Join independently adjudicated audit, billing, and receiver evidence in a governed reporting store before adding those tiles. Zero telemetry rows means **unknown**, not zero errors."
+      }
+    }
+  ],
+  "isLocked": false
+}

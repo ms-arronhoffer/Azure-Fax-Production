@@ -1,0 +1,92 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "name": "operations-title",
+      "content": {
+        "version": "MarkdownItem/1.0",
+        "content": "# Fax Processing - Operations\n\nLive Application Insights telemetry. Business facts are safe, sampled operational signals and must be reconciled to immutable job/manifests for official counts. No fax text or extracted values are displayed."
+      }
+    },
+    {
+      "type": 3,
+      "name": "request-summary",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppRequests\n| where TimeGenerated > ago(24h)\n| summarize Requests=count(), Failed=countif(Success == false), P50DurationMs=round(percentile(DurationMs, 50), 1), P95DurationMs=round(percentile(DurationMs, 95), 1)",
+        "size": 1,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "tiles"
+      }
+    },
+    {
+      "type": 3,
+      "name": "request-trend",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppRequests\n| where TimeGenerated > ago(24h)\n| summarize Requests=count(), Failed=countif(Success == false) by bin(TimeGenerated, 15m)\n| order by TimeGenerated asc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "timechart"
+      }
+    },
+    {
+      "type": 3,
+      "name": "latest-outcomes",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Latest = AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), Status=tostring(Fact.status)\n| where isnotempty(FaxId)\n| summarize arg_max(TimeGenerated, *) by FaxId;\nLatest\n| summarize Faxes=count() by Status\n| order by Faxes desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "piechart"
+      }
+    },
+    {
+      "type": 3,
+      "name": "review-backlog",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let Latest = AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| extend FaxId=tostring(Fact.faxId), Status=tostring(Fact.status), ReviewEnteredAt=todatetime(Fact.reviewEnteredAt), Source=tostring(Fact.sourceLabel), DocumentType=tostring(Fact.documentType), Reason=tostring(Fact.reason)\n| where isnotempty(FaxId)\n| summarize arg_max(TimeGenerated, *) by FaxId;\nLatest\n| where Status == \"PendingHumanReview\"\n| extend AgeHours=round(datetime_diff(\"minute\", now(), ReviewEnteredAt) / 60.0, 1)\n| project FaxId, AgeHours, Source, DocumentType, Reason\n| order by AgeHours desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "name": "completion-latency",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppTraces\n| where TimeGenerated > ago(30d)\n| where Message startswith \"FAX_METRIC \"\n| extend Fact=parse_json(substring(Message, 11))\n| where tostring(Fact.status) == \"Completed\"\n| extend FaxId=tostring(Fact.faxId), Mode=tostring(Fact.completionMode), Created=todatetime(Fact.createdAt), Prepared=todatetime(Fact.updatedAt)\n| where isnotempty(FaxId) and isnotnull(Created) and isnotnull(Prepared)\n| summarize arg_max(TimeGenerated, *) by FaxId\n| extend LatencyMinutes=datetime_diff(\"second\", Prepared, Created) / 60.0\n| summarize Completed=count(), P50Minutes=round(percentile(LatencyMinutes, 50), 2), P95Minutes=round(percentile(LatencyMinutes, 95), 2) by Mode",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "table"
+      }
+    },
+    {
+      "type": 3,
+      "name": "safe-failures",
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "AppTraces\n| where TimeGenerated > ago(24h)\n| where Message startswith \"FAX_STAGE_FAILURE \" or Message startswith \"fax_\"\n| extend SafeCode=iff(Message startswith \"FAX_STAGE_FAILURE \", tostring(parse_json(substring(Message, 18)).code), tostring(split(Message, \" \")[0]))\n| summarize Count=count(), LastSeen=max(TimeGenerated) by SafeCode\n| order by Count desc",
+        "size": 0,
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "crossComponentResources": ["{workspaceResourceId}"],
+        "visualization": "table"
+      }
+    }
+  ],
+  "isLocked": false
+}

@@ -1,0 +1,26 @@
+{
+  "runnerClientId": "",
+  "observerClientId": "",
+  "reviewerClientId": "",
+  "deniedClientId": "",
+  "storageUrl": "",
+  "apiUrl": "",
+  "apiAudience": "",
+  "runtimeConfigSha256": "",
+  "sources": {
+    "one": "",
+    "none": "",
+    "multi": "",
+    "hl7-not_applicable": "",
+    "hl7-error": ""
+  },
+  "versions": {
+    "pageClassifier": "",
+    "typeClassifier": "",
+    "examModel": "",
+    "orderModel": "",
+    "rxModel": "",
+    "deployment": "",
+    "calibration": ""
+  }
+}

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1880" viewBox="0 0 2400 1880" role="img" aria-labelledby="title desc"><title id="title">03 — Success criteria matrix</title><desc id="desc">PROPOSED RELEASE TARGETS • NOT measured results • all mandatory gates must pass; insufficient evidence = NOT QUALIFIED. All service icons are unmodified embedded official Microsoft Azure SVGs.</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs><g font-family="Arial, sans-serif"><rect width="100%" height="100%" fill="#ffffff"/>
+<text x="45" y="75" fill="#17324d" font-size="38" font-weight="700" text-anchor="start"><tspan x="45" dy="0">03 — Success criteria matrix</tspan></text>
+<text x="48" y="119" fill="#63758a" font-size="20" font-weight="400" text-anchor="start"><tspan x="48" dy="0">PROPOSED RELEASE TARGETS • NOT measured results • all mandatory gates must pass; insufficient evidence = NOT QUALIFIED</tspan></text>
+<rect x="35" y="160" width="2330" height="1500" rx="12" fill="#f3f8fd" stroke="#bdd5e9" stroke-width="2"/>
+<text x="55" y="198" fill="#17324d" font-size="22" font-weight="700" text-anchor="start"><tspan x="55" dy="0">Evaluate a frozen version on independently adjudicated, held-out faxes; stratify by type, source, quality and approval path</tspan></text>
+<g id="metric-0">
+<rect x="65" y="240" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="85" y="286" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="85" dy="0">A. Fax-type classification</tspan></text>
+<text x="85" y="332" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="85" dy="0">Macro-F1 &gt;= 0.98 on supported fax types</tspan><tspan x="85" dy="25">Recall &gt;= 0.97 for EACH supported type</tspan><tspan x="85" dy="25">Unknown / mixed detection recall &gt;= 0.99</tspan><tspan x="85" dy="25">Minimum 200 held-out faxes per supported type</tspan><tspan x="85" dy="25">Include exam record, order and Rx separately</tspan></text>
+</g>
+<g id="metric-1">
+<rect x="840" y="240" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="860" y="286" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="860" dy="0">B. Cover / page preservation</tspan></text>
+<text x="860" y="332" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="860" dy="0">Cover-removal precision &gt;= 0.999</tspan><tspan x="860" dy="25">Cover-removal recall &gt;= 0.99</tspan><tspan x="860" dy="25">ZERO clinically relevant body pages removed</tspan><tspan x="860" dy="25">Test cover, no-cover, repeats and poor scans</tspan><tspan x="860" dy="25">Any harmful deletion blocks release</tspan></text>
+</g>
+<g id="metric-2">
+<rect x="1615" y="240" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="1635" y="286" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="1635" dy="0">C. Automatic fax correctness</tspan></text>
+<text x="1635" y="332" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="1635" dy="0">All-required-fields-correct fax rate:</tspan><tspan x="1635" dy="25">one-sided 95% lower bound &gt;= 0.99</tspan><tspan x="1635" dy="25">Denominator: independently audited AUTO releases</tspan><tspan x="1635" dy="25">Never average field accuracy across a fax</tspan><tspan x="1635" dy="25">Evaluate each enabled type / source stratum</tspan></text>
+</g>
+<g id="metric-3">
+<rect x="65" y="585" width="745" height="295" rx="12" fill="#ffffff" stroke="#b02e38" stroke-width="2"/>
+<text x="85" y="631" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="85" dy="0">D. Critical clinical error gate</tspan></text>
+<text x="85" y="677" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="85" dy="0">ZERO observed critical released-data errors</tspan><tspan x="85" dy="25">One-sided 95% error upper bound &lt;= 0.001</tspan><tspan x="85" dy="25">At least 2,995 audited releases if zero errors</tspan><tspan x="85" dy="25">IDs, drug / dose / unit, order / result semantics</tspan><tspan x="85" dy="25">Assess automatic and human paths separately</tspan></text>
+</g>
+<g id="metric-4">
+<rect x="840" y="585" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="860" y="631" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="860" dy="0">E. Human-reviewed correctness</tspan></text>
+<text x="860" y="677" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="860" dy="0">All-required-fields-correct fax rate:</tspan><tspan x="860" dy="25">one-sided 95% lower bound &gt;= 0.99</tspan><tspan x="860" dy="25">Independent second audit, NOT self-approval</tspan><tspan x="860" dy="25">100% reviewer identity / time / evidence audit</tspan><tspan x="860" dy="25">Original machine scores remain unchanged</tspan></text>
+</g>
+<g id="metric-5">
+<rect x="1615" y="585" width="745" height="295" rx="12" fill="#ffffff" stroke="#b02e38" stroke-width="2"/>
+<text x="1635" y="631" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="1635" dy="0">F. Fail-closed invariants</tspan></text>
+<text x="1635" y="677" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="1635" dy="0">100% negative test cases block completion</tspan><tspan x="1635" dy="25">Missing / &lt;0.80 fields never auto-release</tspan><tspan x="1635" dy="25">Unknown type / failed HL7 never completes</tspan><tspan x="1635" dy="25">Human approval cannot bypass HL7 checks</tspan><tspan x="1635" dy="25">ZERO unauthorized or duplicate releases</tspan></text>
+</g>
+<g id="metric-6">
+<rect x="65" y="930" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="85" y="976" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="85" dy="0">G. HL7 fidelity / conformance</tspan></text>
+<text x="85" y="1022" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="85" dy="0">100% required outputs parse + match profile</tspan><tspan x="85" dy="25">100% selected-field reconciliation on gold set</tspan><tspan x="85" dy="25">ZERO critical code / unit / identity mismatches</tspan><tspan x="85" dy="25">Every destination + version + repeat tested</tspan><tspan x="85" dy="25">Invalid mappings or missing data → hold</tspan></text>
+</g>
+<g id="metric-7">
+<rect x="840" y="930" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="860" y="976" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="860" dy="0">H. Publication reliability</tspan></text>
+<text x="860" y="1022" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="860" dy="0">&gt;= 99.9% eligible jobs complete within 15 min</tspan><tspan x="860" dy="25">From upload, or human approval for review path</tspan><tspan x="860" dy="25">All output hashes + manifest reconcile: 100%</tspan><tspan x="860" dy="25">Fault / restart / duplicate / timeout test loss: 0</tspan><tspan x="860" dy="25">Required HL7 failures remain in denominator</tspan></text>
+</g>
+<g id="metric-8">
+<rect x="1615" y="930" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="1635" y="976" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="1635" dy="0">I. Latency / review operations</tspan></text>
+<text x="1635" y="1022" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="1635" dy="0">Automatic completion latency: p95 &lt;= 5 min</tspan><tspan x="1635" dy="25">Measured at agreed peak load; errors count</tspan><tspan x="1635" dy="25">&gt;= 95% review cases resolved within 1 workday</tspan><tspan x="1635" dy="25">Report queue age, unresolved cases and N/A rate</tspan><tspan x="1635" dy="25">Human wait is separate from compute latency</tspan></text>
+</g>
+<g id="metric-9">
+<rect x="65" y="1275" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="85" y="1321" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="85" dy="0">J. Automation / rejection burden</tspan></text>
+<text x="85" y="1367" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="85" dy="0">Proposed straight-through release rate &gt;= 70%</tspan><tspan x="85" dy="25">Denominator: all valid supported input faxes</tspan><tspan x="85" dy="25">Report by type / source, include rejected reads</tspan><tspan x="85" dy="25">Never lower 80% or safety gates to hit yield</tspan><tspan x="85" dy="25">Capacity-plan the remaining review workload</tspan></text>
+</g>
+<g id="metric-10">
+<rect x="840" y="1275" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="860" y="1321" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="860" dy="0">K. Evidence and drift</tspan></text>
+<text x="860" y="1367" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="860" dy="0">&gt;= 30-day pilot at agreed peak load</tspan><tspan x="860" dy="25">Confidence bounds, counts and versions recorded</tspan><tspan x="860" dy="25">Critical error: immediately hold affected releases</tspan><tspan x="860" dy="25">Any gate miss / weak evidence: not qualified</tspan><tspan x="860" dy="25">Requalify model, schema and mapping changes</tspan></text>
+</g>
+<g id="metric-11">
+<rect x="1615" y="1275" width="745" height="295" rx="12" fill="#ffffff" stroke="#087f8c" stroke-width="2"/>
+<text x="1635" y="1321" fill="#17324d" font-size="23" font-weight="700" text-anchor="start"><tspan x="1635" dy="0">L. Final release decision</tspan></text>
+<text x="1635" y="1367" fill="#17324d" font-size="18" font-weight="400" text-anchor="start"><tspan x="1635" dy="0">Clinical + data + interface + operations sign-off</tspan><tspan x="1635" dy="25">ALL mandatory criteria pass; no weighted average</tspan><tspan x="1635" dy="25">Unmeasured target is NOT an achieved result</tspan><tspan x="1635" dy="25">Docs define denominators and statistical tests</tspan><tspan x="1635" dy="25">Blob completion is NOT receiver ACK / acceptance</tspan></text>
+</g>
+<text x="65" y="1715" fill="#63758a" font-size="20" font-weight="400" text-anchor="start"><tspan x="65" dy="0">Accuracy is checked against independent ground truth, not the model confidence score. The fixed 0.80 gate alone does not prove correctness.</tspan><tspan x="65" dy="25">Targets are proposed for owner approval. Confidence intervals apply to rates, not F1; see ../docs/success-criteria.md for sampling and formulas.</tspan><tspan x="65" dy="25">Critical-error bound with zero errors: U95 = 1 - 0.05^(1/n). Do not claim a per-type/source result from a pooled sample.</tspan><tspan x="65" dy="25">Current package has no dedicated type classifier, HL7 transform or human-release API. These target stages need implementation and validation.</tspan></text>
+</g></svg>

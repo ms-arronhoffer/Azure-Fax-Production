@@ -1,0 +1,17 @@
+{
+  "runnerClientId": "",
+  "authoring": {
+    "resourceId": "",
+    "endpoint": "",
+    "models": {"page": "", "type": "", "exam": "", "order": "", "rx": ""}
+  },
+  "runtime": {
+    "resourceId": "",
+    "endpoint": "",
+    "models": {"page": "", "type": "", "exam": "", "order": "", "rx": ""}
+  },
+  "trainingContainerUrl": "",
+  "trainingPrefix": "",
+  "buildMode": "template",
+  "maxTrainingHours": 0.5
+}

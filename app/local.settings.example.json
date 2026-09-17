@@ -1,0 +1,18 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsStorage__accountName": "",
+    "AzureWebJobsStorage__credential": "managedidentity",
+    "FaxQueueConnection__queueServiceUri": "",
+    "FaxQueueConnection__credential": "managedidentity",
+    "DATA_STORAGE_ACCOUNT_URL": "",
+    "DATA_QUEUE_URL": "",
+    "DOCUMENT_INTELLIGENCE_ENDPOINT": "",
+    "ENTRA_TENANT_ID": "",
+    "ENTRA_API_AUDIENCE": "",
+    "PROCESSING_ENABLED": "false",
+    "MAX_UPLOAD_BYTES": "20971520",
+    "MAX_PAGES": "100"
+  }
+}
