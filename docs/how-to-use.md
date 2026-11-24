@@ -68,6 +68,26 @@ source and original idempotency key. A new key creates a new logical fax. A 409
 means the key was reused with different content/source/MIME and must be
 investigated, not automatically retried.
 
+### Run a submitter smoke test
+
+From a machine that can reach the private Fax API, run this from the repository
+root in PowerShell 7.2 or later. Use an approved synthetic fixture, never PHI.
+The script prompts for an access token issued for the Fax API audience, using
+an identity with `Fax.Submit` and permission for the chosen source.
+
+```powershell
+.\scripts\Test-FaxUserWorkflow.ps1 `
+   -BaseUrl 'https://<function-app>.azurewebsites.net' `
+   -FaxPath '.\synthetic-exam.pdf' -Source 'clinic-a'
+```
+
+The script submits one fax and checks that it reaches `Completed` with a
+manifest pointer. For a fixture intended to be held, add
+`-ExpectedStatus PendingHumanReview`. This checks the submitter experience,
+not the reviewer interface or the contents of published artifacts. If submission
+times out or returns a transient 503, reuse the displayed `-IdempotencyKey`
+with the same identity, file, and source rather than creating another fax.
+
 ## Option 3: process a fax through the trusted Blob integration
 
 Use this only for the dedicated managed identity allowed to write `incoming` and
